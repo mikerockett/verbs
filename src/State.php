@@ -9,6 +9,7 @@ use Ramsey\Uuid\UuidInterface;
 use RuntimeException;
 use Symfony\Component\Uid\AbstractUid;
 use Thunk\Verbs\Contracts\StoresEvents;
+use Thunk\Verbs\Facades\Id;
 use Thunk\Verbs\Exceptions\StateNotFoundException;
 use Thunk\Verbs\Lifecycle\StateManager;
 use Thunk\Verbs\Support\Serializer;
@@ -56,7 +57,7 @@ abstract class State implements UrlRoutable
 
     public static function new()
     {
-        return static::load(snowflake()->make());
+        return static::load(Id::make());
     }
 
     public static function loadOrFail($from): static
