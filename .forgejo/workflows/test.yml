@@ -12,11 +12,12 @@ jobs:
     name: SQLite
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        run: |
+          apt-get update && apt-get install -y git unzip libsqlite3-dev
+          git clone --depth 1 --branch "${FORGEJO_REF_NAME}" "${FORGEJO_SERVER_URL}/${FORGEJO_REPOSITORY}.git" .
 
       - name: Install dependencies
         run: |
-          apt-get update && apt-get install -y unzip libsqlite3-dev
           docker-php-ext-install pdo_sqlite
           curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
           composer update --prefer-stable --prefer-dist --no-interaction
