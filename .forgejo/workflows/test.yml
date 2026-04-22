@@ -8,21 +8,18 @@ on:
 
 jobs:
   sqlite:
-    runs-on: ubuntu-latest
+    runs-on: php8.5
     name: SQLite
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: '8.5'
-          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, bcmath, intl
-          coverage: none
-
       - name: Install dependencies
-        run: composer update --prefer-stable --prefer-dist --no-interaction
+        run: |
+          apt-get update && apt-get install -y unzip libsqlite3-dev
+          docker-php-ext-install pdo_sqlite
+          curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          composer update --prefer-stable --prefer-dist --no-interaction
 
       - name: Run tests
         run: vendor/bin/pest
