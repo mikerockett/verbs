@@ -1,0 +1,25 @@
+name: Publish Package
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dependencies
+        run: apt-get update && apt-get install -y zip curl
+
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Create archive
+        run: zip -r package.zip . -x '.git/*' -x '.forgejo/*'
+
+      - name: Publish to registry
+        run: |
+          curl --fail --silent --show-error \
+            --user "${FORGEJO_REPOSITORY_OWNER}:${{ secrets.PACKAGE_TOKEN }}" \
+            --upload-file package.zip \
+            "${FORGEJO_SERVER_URL}/api/packages/${FORGEJO_REPOSITORY_OWNER}/composer?version=dev-main"
