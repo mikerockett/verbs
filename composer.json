@@ -23,8 +23,8 @@
         "internachi/modularize": "^1.1.1",
         "laravel/prompts": "^0.1.15|^0.2|^0.3",
         "spatie/laravel-package-tools": "^1.14.0",
-        "symfony/property-access": "^6.2|^7.0",
-        "symfony/serializer": "^6.3|^7.0"
+        "symfony/property-access": "^7.0|^8.0",
+        "symfony/serializer": "^7.0|^8.0"
     },
     "require-dev": {
         "brick/money": ">=0.8.1",
@@ -37,8 +37,7 @@
         "pestphp/pest": "^2.24|^3.7|^4.4",
         "pestphp/pest-plugin-arch": "^2.4|^3.0|^v4.0",
         "pestphp/pest-plugin-laravel": "^2.2|^3.1|^4.1",
-        "phpunit/phpunit": "^10.5|^11.5.3|^12.5",
-        "projektgopher/whisky": "^0.5.1|^0.7"
+        "phpunit/phpunit": "^11.5.3|^12.5"
     },
     "autoload": {
         "psr-4": {
@@ -73,12 +72,6 @@
         "post-autoload-dump": [
             "@clear",
             "@prepare"
-        ],
-        "post-install-cmd": [
-            "whisky update"
-        ],
-        "post-update-cmd": [
-            "whisky update"
         ],
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
