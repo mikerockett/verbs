@@ -7,9 +7,10 @@ on:
     branches: [main]
 
 jobs:
-  sqlite:
+  tests:
     runs-on: php8.5
-    name: SQLite
+    name: Tests
+    if: "!contains(github.event.head_commit.message, '[skip tests]')"
     steps:
       - name: Checkout code
         run: |
